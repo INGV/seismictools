@@ -17,24 +17,9 @@ RUN apt-get update \
         wget \
         curl \
         default-jre \
+	make \
+	gcc \
         procps
-
-RUN apt-get install -y \
-	python3-dev \
-	python3-pycurl \
-	python3-simplejson \
-	libcurl4-gnutls-dev \
-	libssl-dev \
-	python3 \
-	python3-psutil \
-	python3-requests \
-	python3-jsonschema \
-	python3-setuptools \
-	python3-dev \
-	build-essential \
-	libxml2-dev \
-	libxslt1-dev \
-	libz-dev
 
 # Set .bashrc
 RUN echo "" >> /root/.bashrc \
@@ -83,32 +68,3 @@ RUN tar xvzf qmerge.2014.329.tar.gz \
     && make clean \
     && make install \
     && rm -fr /opt/qmerge
-
-# Get and install PyRocko - https://pyrocko.org/docs/current/install/system/deb.html
-WORKDIR /opt
-RUN apt-get update \
-    && apt-get install -y \
-        make \
-        git \
-        python3-dev \
-        python3-setuptools \
-        python3-numpy \
-        python3-numpy-dev \
-        python3-scipy \
-        python3-matplotlib \
-        python3-pyqt4 \
-        python3-pyqt4.qtopengl \
-        python3-pyqt5 \
-        python3-pyqt5.qtopengl \
-        python3-pyqt5.qtsvg \
-        python3-pyqt5.qtwebengine || apt-get install -y python3-pyqt5.qtwebkit 
-RUN apt-get install -y python3-yaml \
-        python3-progressbar \
-        python3-jinja2 \
-        python3-requests
-RUN git clone https://git.pyrocko.org/pyrocko/pyrocko.git pyrocko \
-    && cd pyrocko \
-    && python3 setup.py install
-WORKDIR /
-RUN mkdir /.pyrocko/ \
-    && chmod 777 /.pyrocko/
