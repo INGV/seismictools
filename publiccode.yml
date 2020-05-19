@@ -47,15 +47,17 @@ description:
       Docker with Seismic Tools.
     documentation: 'https://github.com/INGV/seismictools/blob/master/README.md'
     longDescription: >
-      This project is developed to create a Docker with most used seismic tools for data manipulation.
-      
-      These softwares are downloaded from Quanterra User Group:
-      - http://www.ncedc.org/qug/
-      
+      This project is developed to create a Docker image with most used seismic tools for data manipulation.
+
       In this Docker image, the tools actually intalled are:
       - qmerge
       - rdseed: https://ds.iris.edu/ds/nodes/dmc/manuals/rdseed/
       - stationxml-converter: https://github.com/iris-edu/stationxml-seed-converter
+
+      These softwares are downloaded from Quanterra User Group:
+      - http://www.ncedc.org/qug/
+      
+      but can be download from others sites.      
       
       Please, feel free to add new software into the Docker image.
       
