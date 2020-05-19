@@ -44,7 +44,7 @@ description:
   en:
     genericName: seismictools
     shortDescription: >-
-      Docker with Seismic Tools.
+      Docker image with Seismic Tools.
     documentation: 'https://github.com/INGV/seismictools/blob/master/README.md'
     longDescription: >
       This project is developed to create a Docker image with most used seismic tools for data manipulation; it is a working progres and will be updated with new tools
