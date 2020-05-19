@@ -26,9 +26,10 @@ $ docker build --no-cache --pull --tag seismictools .
 ```
 
 ### Run docker
-Running the command below to see the **help**:
+To run the container, use the command below; the `-v` option is used to "mount" working directory into container:
 ```
-$ docker run -it --rm seismictools /bin/bash 
+$ docker run -it --rm -v /tmp/data:/tmp/data seismictools /bin/bash 
+```
 
 # Contribute
 Please, feel free to contribute.
