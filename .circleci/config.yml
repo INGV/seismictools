@@ -1,0 +1,45 @@
+version: 2
+jobs:
+  start:
+    docker:
+      - image: debian:stretch
+    steps:
+      - run:
+          name: Date start
+          command: date
+  test_code:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Test the code here
+          command: pwd ; ls -l 
+  end:
+    docker:
+      - image: debian:stretch
+    steps:
+      - run:
+          name: Date end
+          command: date
+
+  test_publiccode:
+    docker:
+      - image: circleci/golang:1.12
+    steps:
+      - checkout
+      - run: go get -v github.com/italia/publiccode-parser-go/pcvalidate
+      - run: /go/bin/pcvalidate --remote-base-url https://raw.githubusercontent.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH publiccode.yml
+
+workflows:
+  version: 2
+  my_workflow:
+    jobs:
+      - start
+      - test_code:
+          requires:
+            - start
+      - end:
+          requires:
+            - test_code
+      - test_publiccode
