@@ -57,9 +57,7 @@ description:
       These softwares are downloaded from Quanterra User Group:
       - http://www.ncedc.org/qug/
       
-      but can be download from others sites.      
-      
-      Please, feel free to add new software into the Docker image.
+      but feel free to add new software into Docker image as you prefer.
       
     localisedName: 'Seismic Tools'
     features:
