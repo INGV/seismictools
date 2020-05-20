@@ -34,7 +34,7 @@ jobs:
 
 workflows:
   version: 2
-  seismictools_workflow:
+  workflow:
     jobs:
       - start
       - build_docker_image:
