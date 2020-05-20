@@ -35,7 +35,7 @@ jobs:
 
 workflows:
   version: 2
-  my_workflow:
+  seismictools_workflow:
     jobs:
       - start
       - test_code:
@@ -43,5 +43,5 @@ workflows:
             - start
       - end:
           requires:
-            - test_code
+            - build_docker_image
       - test_publiccode
