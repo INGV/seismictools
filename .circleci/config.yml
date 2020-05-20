@@ -38,7 +38,7 @@ workflows:
   seismictools_workflow:
     jobs:
       - start
-      - test_code:
+      - build_docker_image:
           requires:
             - start
       - end:
