@@ -7,12 +7,13 @@ jobs:
       - run:
           name: Date start
           command: date
-  test_code:
+  build_docker_image:
     docker:
       - image: docker:18.06.0-ce
     steps:
       - checkout
       - setup_remote_docker
+          docker_layer_caching: true
       - run:
           name: Build docker image
           command: docker build --no-cache --pull --tag seismictools .
