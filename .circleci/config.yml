@@ -13,8 +13,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Test the code here
-          command: pwd ; ls -l 
+          name: Build docker image
+          command: docker build --no-cache --pull --tag seismictools .
   end:
     docker:
       - image: debian:stretch
