@@ -9,7 +9,7 @@ jobs:
           command: date
   test_code:
     docker:
-      - image: debian:stretch
+      - image: docker:18.06.0-ce
     steps:
       - checkout
       - run:
