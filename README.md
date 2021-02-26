@@ -2,8 +2,6 @@
 
 [![License](https://img.shields.io/github/license/INGV/seismictools.svg)](https://github.com/INGV/seismictools/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/INGV/seismictools.svg)](https://github.com/INGV/seismictools/issues)
-[![Join the #general channel](https://img.shields.io/badge/Slack%20channel-%23general-blue.svg)](https://ingv-institute.slack.com/messages/CKS902Y5B)
-[![Get invited](https://slack.developers.italia.it/badge.svg)](https://join.slack.com/t/ingv-institute/shared_invite/zt-ckoji8va-mutwycltiCw_EAhUWSND8Q)
 
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ingv/seismictools)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/ingv/seismictools?sort=semver)
@@ -44,9 +42,10 @@ To run the container, use the command below; the `-v` option is used to "mount" 
 $ docker run -it --rm --user $(id -u):$(id -g) -v /tmp/data:/tmp/data ingv/seismictools /bin/bash
 ```
 
-## Update Docker image available from DockerHub:
+## Update Docker image from DockerHub
+Get last Docker image from DockerHub repository:
 ```
-$ docker pull ingv/fdsnws-fetcher
+$ docker pull ingv/seismictools
 ```
 
 # Contribute
