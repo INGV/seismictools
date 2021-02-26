@@ -5,6 +5,10 @@
 [![Join the #general channel](https://img.shields.io/badge/Slack%20channel-%23general-blue.svg)](https://ingv-institute.slack.com/messages/CKS902Y5B)
 [![Get invited](https://slack.developers.italia.it/badge.svg)](https://join.slack.com/t/ingv-institute/shared_invite/zt-ckoji8va-mutwycltiCw_EAhUWSND8Q)
 
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ingv/seismictools)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/ingv/seismictools?sort=semver)
+![Docker Pulls](https://img.shields.io/docker/pulls/ingv/seismictools)
+
 # seismictools [![Version](https://img.shields.io/badge/dynamic/yaml?label=ver&query=softwareVersion&url=https://raw.githubusercontent.com/INGV/seismictools/master/publiccode.yml)](https://github.com/INGV/seismictools/blob/master/publiccode.yml) [![CircleCI](https://circleci.com/gh/INGV/seismictools/tree/master.svg?style=svg)](https://circleci.com/gh/INGV/seismictools/tree/master)
 
 This Docker contains seismic tools like:
@@ -12,23 +16,37 @@ This Docker contains seismic tools like:
 - stationxml-converter 
 
 ## Quickstart
-### Build docker
-Clone this repository, then:
+### Docker image
+To obtain *seismictools* docker image, you have two options:
 
+#### 1) Get built image from DockerHub (*preferred*)
+Get the last built image from DockerHub repository:
 ```
+$ docker pull ingv/seismictools:latest
+```
+
+#### 2) Build by yourself
+First, clone the git repository
+```
+$ git clone https://github.com/INGV/seismictools.git
 $ cd seismictools
-$ docker build --tag seismictools . 
+$ docker build --tag ingv/seismictools . 
 ```
 
 in case of errors, try:
 ```
-$ docker build --no-cache --pull --tag seismictools . 
+$ docker build --no-cache --pull --tag ingv/seismictools . 
 ```
 
 ### Run docker
 To run the container, use the command below; the `-v` option is used to "mount" working directory into container:
 ```
-$ docker run -it --rm -v /tmp/data:/tmp/data seismictools /bin/bash 
+$ docker run -it --rm --user $(id -u):$(id -g) -v /tmp/data:/tmp/data ingv/seismictools /bin/bash
+```
+
+## Update Docker image available from DockerHub:
+```
+$ docker pull ingv/fdsnws-fetcher
 ```
 
 # Contribute

@@ -68,3 +68,10 @@ RUN tar xvzf qmerge.2014.329.tar.gz \
     && make clean \
     && make install \
     && rm -fr /opt/qmerge
+
+# Get last leapseconds
+WORKDIR /usr/local/etc
+RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds
+
+# Install StationXML-SEED-Comnverter
+COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
