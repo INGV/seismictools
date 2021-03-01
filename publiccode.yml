@@ -4,11 +4,11 @@
 
 publiccodeYmlVersion: '0.2'
 name: 'INGV - Seismic Tools' 
-releaseDate: '2021-02-26'
+releaseDate: '2021-03-01'
 url: 'https://github.com/INGV/seismictools'
 logo: images/ingv_logo_text_two_lines.png
 landingURL: 'https://github.com/INGV/seismictools'
-softwareVersion: 1.1.1
+softwareVersion: v1.2.0
 developmentStatus: stable
 softwareType: standalone/other
 platforms:
