@@ -10,8 +10,11 @@
 # seismictools [![Version](https://img.shields.io/badge/dynamic/yaml?label=ver&query=softwareVersion&url=https://raw.githubusercontent.com/INGV/seismictools/master/publiccode.yml)](https://github.com/INGV/seismictools/blob/master/publiccode.yml) [![CircleCI](https://circleci.com/gh/INGV/seismictools/tree/master.svg?style=svg)](https://circleci.com/gh/INGV/seismictools/tree/master)
 
 This Docker contains seismic tools like:
+- sac
 - qmerge
-- stationxml-converter 
+- rdseed
+- caldate
+- stationxml-seed-converter 
 
 ## Quickstart
 ### Docker image

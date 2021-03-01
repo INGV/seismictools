@@ -10,6 +10,7 @@ ENV FAKE_CHROOT 1
 RUN apt-get update \
     && apt-get dist-upgrade -y --no-install-recommends \
     && apt-get install -y \
+        apt-utils \
         vim \
         git \
         telnet \
@@ -18,7 +19,11 @@ RUN apt-get update \
         curl \
         default-jre \
 	make \
+        build-essential \
+        autoconf \
 	gcc \
+        libncurses5-dev \
+        libx11-dev \
         procps
 
 # Set .bashrc
@@ -32,7 +37,11 @@ RUN echo "" >> /root/.bashrc \
 # Set 'root' pwd
 RUN echo root:toor | chpasswd
 
-# Get and install rdseed
+# Install last leapseconds
+WORKDIR /usr/local/etc
+RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds
+
+# Install rdseed
 WORKDIR /opt
 COPY soft/rdseedv5.3.1.tar.gz /opt/
 RUN tar xvzf rdseedv5.3.1.tar.gz \
@@ -69,9 +78,33 @@ RUN tar xvzf qmerge.2014.329.tar.gz \
     && make install \
     && rm -fr /opt/qmerge
 
-# Get last leapseconds
-WORKDIR /usr/local/etc
-RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds
+# Install SAC (Install libncurses5 and x11-dev. Needed for SAC.)
+WORKDIR /opt
+COPY soft/sac-101.6a_source.tar.gz /opt/
+RUN tar xvfz sac-101.6a_source.tar.gz \
+    && cd sac-101.6a \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -fr sac-101.6a/ sac-101.6a_source.tar.gz \
+    && echo 'export PATH=/usr/local/sac/bin:${PATH}' >> /root/.bashrc \
+    && echo 'export SACAUX=/usr/local/sac/aux' >> /root/.bashrc
+
+# Install caldate
+WORKDIR /opt
+COPY soft/caldate.2014.238.tar.gz /opt/
+RUN tar xvfz caldate.2014.238.tar.gz \
+    && cd caldate \
+    && make clean \
+    && sed -e 's|^QLIB2.*|QLIB2 = /usr/local/lib64/libqlib2.a|' -e 's|^IQLIB2.*|IQLIB2  = -I/usr/local/|' Makefile > Makefile.new \
+    && mv Makefile Makefile.original \
+    && mv Makefile.new Makefile \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -fr caldate \
+    && rm caldate.2014.238.tar.gz
 
 # Install StationXML-SEED-Comnverter
 COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
