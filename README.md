@@ -23,7 +23,7 @@ To obtain *seismictools* docker image, you have two options:
 #### 1) Get built image from DockerHub (*preferred*)
 Get the last built image from DockerHub repository:
 ```
-$ docker pull ingv/seismictools:latest
+$ docker pull ingv/seismictools
 ```
 
 #### 2) Build by yourself
