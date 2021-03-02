@@ -1,4 +1,14 @@
-version: 2
+# IMPORTAT GUIDES:
+#  - https://circleci.com/blog/using-circleci-workflows-to-replicate-docker-hub-automated-builds/
+#  - https://circleci.com/docs/2.0/configuration-reference/#tags
+#  - https://circleci.com/docs/2.0/workflows/#executing-workflows-for-a-git-tag
+version: 2.1
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: ingv/seismictools
+    docker:
+      - image: circleci/buildpack-deps:stretch
 jobs:
   start:
     docker:
@@ -7,15 +17,42 @@ jobs:
       - run:
           name: Date start
           command: date
-  build_docker_image:
-    docker:
-      - image: docker:18.06.0-ce
+  build:
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Build docker image
-          command: docker build --no-cache --pull --tag seismictools .
+          command: |
+            IMAGE_TAG=${CIRCLE_TAG/v/''}
+            docker build --no-cache --pull --tag $IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker image
+          command: |
+            docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+  publish-tag-and-latest:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo $DOCKERHUB_ACCESS_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            IMAGE_TAG=${CIRCLE_TAG/v/''}
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
+            docker images
+            docker push $IMAGE_NAME:latest
+            docker push $IMAGE_NAME:$IMAGE_TAG
   end:
     docker:
       - image: debian:stretch
@@ -43,14 +80,40 @@ jobs:
             docker run --rm --volumes-from myfolder italia/publiccode-parser-go publiccode_folder/publiccode.yml
 
 workflows:
-  version: 2
+  version: 2.1
   seismictools-workflow:
     jobs:
-      - start
-      - build_docker_image:
+      - start:
+          filters:
+            tags: # If neither only nor ignore are specified then the job is skipped for all tags: https://circleci.com/docs/2.0/configuration-reference/#tags
+              only: /^v.*/
+      - build:
           requires:
             - start
+          filters:
+            tags: # If neither only nor ignore are specified then the job is skipped for all tags: https://circleci.com/docs/2.0/configuration-reference/#tags
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test_publiccode:
+          requires:
+            - start            
+          filters:
+            tags:
+              only: /^v.*/
+      - publish-tag-and-latest:
+          context:
+            - valentino
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - end:
           requires:
-            - build_docker_image
-      - test_publiccode
+            - publish-tag-and-latest 
+          filters:
+            tags:
+              only: /^v.*/
