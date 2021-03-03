@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/github/license/INGV/seismictools.svg)](https://github.com/INGV/seismictools/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/INGV/seismictools.svg)](https://github.com/INGV/seismictools/issues)
 
-![Docker build](https://img.shields.io/badge/docker%20build-from%20CI-yellow)
+[![Docker build](https://img.shields.io/badge/docker%20build-from%20CI-yellow)](https://hub.docker.com/r/ingv/seismictools)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/ingv/seismictools?sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/ingv/seismictools)
 
