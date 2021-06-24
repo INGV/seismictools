@@ -106,5 +106,12 @@ RUN tar xvfz caldate.2014.238.tar.gz \
     && rm -fr caldate \
     && rm caldate.2014.238.tar.gz
 
+# Install slinktool
+WORKDIR /opt
+RUN git clone https://github.com/iris-edu/slinktool.git \
+    && cd slinktool \
+    && make \
+    && ln -s /opt/slinktool/slinktool /usr/local/bin/slinktool 
+
 # Install StationXML-SEED-Comnverter
 COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
