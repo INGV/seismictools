@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 LABEL maintainer="Valentino Lauciani <valentino.lauciani@ingv.it>"
 
@@ -36,11 +36,6 @@ RUN echo "" >> /root/.bashrc \
 
 # Set 'root' pwd
 RUN echo root:toor | chpasswd
-
-# Install last leapseconds
-WORKDIR /usr/local/etc
-RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds \
-    && head -4 leapseconds
 
 # Install rdseed
 WORKDIR /opt
@@ -116,3 +111,8 @@ RUN git clone https://github.com/iris-edu/slinktool.git \
 
 # Install StationXML-SEED-Comnverter
 COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
+
+# Install last leapseconds - !!! This step must be the last one !!!
+WORKDIR /usr/local/etc
+RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds \
+    && head -4 leapseconds
