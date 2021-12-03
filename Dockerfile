@@ -116,3 +116,6 @@ COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
 WORKDIR /usr/local/etc
 RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds \
     && head -4 leapseconds
+
+# Set final dir
+WORKDIR /opt
