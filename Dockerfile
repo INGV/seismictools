@@ -39,7 +39,8 @@ RUN echo root:toor | chpasswd
 
 # Install last leapseconds
 WORKDIR /usr/local/etc
-RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds
+RUN wget -O leapseconds http://www.ncedc.org/ftp/pub/programs/leapseconds \
+    && head -4 leapseconds
 
 # Install rdseed
 WORKDIR /opt
