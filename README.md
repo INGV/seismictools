@@ -8,7 +8,7 @@
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/ingv/seismictools?sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/ingv/seismictools)
 
-# seismictools [![Version](https://img.shields.io/badge/dynamic/yaml?label=ver&query=softwareVersion&url=https://raw.githubusercontent.com/INGV/seismictools/master/publiccode.yml)](https://github.com/INGV/seismictools/blob/master/publiccode.yml) [![CircleCI](https://circleci.com/gh/INGV/seismictools/tree/master.svg?style=svg)](https://circleci.com/gh/INGV/seismictools/tree/master)
+# seismictools [![Version](https://img.shields.io/badge/dynamic/yaml?label=ver&query=softwareVersion&url=https://raw.githubusercontent.com/INGV/seismictools/master/publiccode.yml)](https://github.com/INGV/seismictools/blob/master/publiccode.yml) [![CircleCI](https://circleci.com/gh/INGV/seismictools/tree/master.svg?style=svg)](https://circleci.com/gh/INGV/seismictools/tree/master) | [![GitHub](https://img.shields.io/static/v1?label=GitHub&message=Link%20to%20repository&color=blueviolet)](https://github.com/INGV/seismictools)
 
 This Docker contains seismic tools like:
 - sac
