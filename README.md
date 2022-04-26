@@ -17,6 +17,7 @@ This Docker contains seismic tools like:
 - caldate
 - stationxml-seed-converter 
 - slinktool
+- mseed2sac
 
 ## Quickstart
 ### Docker image

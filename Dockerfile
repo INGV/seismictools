@@ -24,7 +24,8 @@ RUN apt-get update \
 	gcc \
         libncurses5-dev \
         libx11-dev \
-        procps
+        procps \
+        libz-dev
 
 # Set .bashrc
 RUN echo "" >> /root/.bashrc \
@@ -37,13 +38,25 @@ RUN echo "" >> /root/.bashrc \
 # Set 'root' pwd
 RUN echo root:toor | chpasswd
 
+# Install mseed2sac
+WORKDIR /opt
+COPY soft/mseed2sac-2.3.tar.gz /opt/
+RUN tar xvzf mseed2sac-2.3.tar.gz \
+    && rm /opt/mseed2sac-2.3.tar.gz \
+    && cd mseed2sac-2.3 \
+    && make clean \
+    && make \
+    && cp mseed2sac /usr/local/bin/ \
+    && cd .. \
+    && rm -fr mseed2sac-2.3 
+
 # Install rdseed
 WORKDIR /opt
 COPY soft/rdseedv5.3.1.tar.gz /opt/
 RUN tar xvzf rdseedv5.3.1.tar.gz \
     && rm /opt/rdseedv5.3.1.tar.gz \
-    && cd /usr/bin \
-    && ln -s /opt/rdseedv5.3.1/rdseed.rh6.linux_64 rdseed
+    && cp /opt/rdseedv5.3.1/rdseed.rh6.linux_64 /usr/local/bin/rdseed \
+    && rm -fr /opt/rdseedv5.3.1/
 
 # Install qlib
 WORKDIR /opt
@@ -107,7 +120,9 @@ WORKDIR /opt
 RUN git clone https://github.com/iris-edu/slinktool.git \
     && cd slinktool \
     && make \
-    && ln -s /opt/slinktool/slinktool /usr/local/bin/slinktool 
+    && cp slinktool /usr/local/bin/slinktool \
+    && cd .. \
+    && rm -fr /opt/slinktool 
 
 # Install StationXML-SEED-Comnverter
 COPY soft/stationxml-seed-converter-2.1.0.jar /opt/
